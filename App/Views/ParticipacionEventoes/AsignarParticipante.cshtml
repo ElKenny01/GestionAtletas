@@ -1,0 +1,44 @@
+@model IEnumerable<SIGRAUM2025.Models.Atleta>
+@{
+    ViewData["Title"] = "Asignar Participantes";
+    var idEvento = ViewBag.IdEvento as int?;
+    var nombreEvento = ViewBag.NombreEvento as string;
+}
+<div class="container my-5">
+    <div class="card shadow-lg rounded-4 border-0">
+        <div class="card-header bg-primary text-white rounded-top-4 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">
+                <i class="bi bi-people-fill"></i> Asignar Atletas a: @nombreEvento
+            </h2>
+        </div>
+        <div class="card-body bg-light rounded-bottom-4">
+            <form asp-action="CreateWithSP" method="post">
+                <input type="hidden" name="idEvento" value="@idEvento" />
+                <input type="hidden" name="nombreEvento" value="@nombreEvento" />
+                <div class="form-group mb-3">
+                    <label class="form-label">Resultado</label>
+                    <input name="resultado" class="form-control" />
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-label">Atletas</label>
+                    @foreach (var atleta in Model)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="selectedAtletas" value="@atleta.Id" id="atleta_@atleta.Id" />
+                            <label class="form-check-label" for="atleta_@atleta.Id">
+                                @atleta.Nombre1 @atleta.Nombre2 @atleta.Apellido1 @atleta.Apellido2
+                            </label>
+                        </div>
+                    }
+                </div>
+                <button type="submit" class="btn btn-success rounded-pill mt-3">
+                    <i class="bi bi-plus-circle"></i> Guardar Participación
+                </button>
+                <a asp-action="Index" class="btn btn-secondary rounded-pill mt-3 ms-2">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

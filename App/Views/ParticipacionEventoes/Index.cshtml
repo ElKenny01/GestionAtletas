@@ -1,0 +1,24 @@
+@model IEnumerable<SIGRAUM2025.Models.ParticipacionEvento>
+@{
+    ViewData["Title"] = "Participacion Evento";
+}
+<h1>Participaciones</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Evento</th>
+            <th>Atleta</th>
+            <th>Resultado</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.IdEvento</td>
+            <td>@item.IdAtleta</td>
+            <td>@item.Resultado</td>
+        </tr>
+    }
+    </tbody>
+</table>
